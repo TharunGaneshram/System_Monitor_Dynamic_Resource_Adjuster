@@ -34,7 +34,7 @@ To build and run this kernel module, you need an Ubuntu system (physical machine
 * **Build Essentials:** GCC, Make, etc.
 
     ```
-    sudo apt install build-essential flex bison libncurses5-dev
+    sudo apt install build-essential flex bison
     ```
 
 ## Build Instructions
@@ -69,13 +69,35 @@ To build and run this kernel module, you need an Ubuntu system (physical machine
 
 ## Testing the Module
 
-You can interact with the module via its character device and Sysfs interface. **Highly recommended to open a separate terminal and run `sudo dmesg -w` to monitor kernel logs while testing.**
+**Highly recommended to open a separate terminal and run `sudo dmesg -w` to monitor kernel logs while testing.**
+
+### **Testing with app.c**
+
+The easiest way to test the module is via the simple CLI app.
+
+1.  **Recompile app.c:**
+
+    ```
+    gcc app.c -o user_app
+    ```
+
+2.  **Run the app:**
+
+    ```
+    sudo ./user_app
+    ```
+
+    Follow the CLI instructions to test the module character device and Sysfs interface.
+
+Otherwise, you can interact with the module via its character device and Sysfs interface directly.
 
 ### **Monitoring Kernel Logs**
 
 This command will show all `printk` messages from your module, good for understanding behavior and debugging.
 
-`sudo dmesg -w`
+```
+sudo dmesg -w
+```
 
 ### **Testing Character Device Interface (`/dev/auto_monitor`)**
 
@@ -187,5 +209,3 @@ To see the resource adjustment logic in action, set a high workload and then con
     ```
 
     **Observe in `dmesg -w`:** You should see messages confirming the HRTimer stopped, workqueue destroyed, Sysfs attributes removed, device node removed, and module unloaded.
-
-app.c file for easier testing is still in progress.
