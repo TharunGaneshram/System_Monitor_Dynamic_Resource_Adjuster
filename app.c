@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h> // For open()
-#include <unistd.h> // For close(), read(), write()
-#include <errno.h>  // For errno
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
 
 #define DEVICE_FILE "/dev/auto_monitor"
-#define SYSLOG_CMD "dmesg | tail -n 20" // Command to view kernel logs
+#define SYSLOG_CMD "dmesg | tail -n 20"
 
 void print_menu() {
     printf("\n--- Auto Monitor User App ---\n");
@@ -33,7 +33,7 @@ int read_sysfs_attr(const char* attr_path, char* buffer, size_t buf_size) {
         close(fd);
         return -1;
     }
-    buffer[bytes_read] = '\0'; // Null-terminate
+    buffer[bytes_read] = '\0';
     close(fd);
     return 0;
 }
@@ -65,10 +65,10 @@ int main() {
         print_menu();
         if (scanf("%d", &choice) != 1) {
             printf("Invalid input. Please enter a number.\n");
-            while (getchar() != '\n'); // Clear input buffer
+            while (getchar() != '\n');
             continue;
         }
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n');
 
         switch (choice) {
             case 1: // Read from /dev/auto_monitor
@@ -93,7 +93,7 @@ int main() {
                     printf("Error reading input.\n");
                     break;
                 }
-                input_str[strcspn(input_str, "\n")] = 0; // Remove newline
+                input_str[strcspn(input_str, "\n")] = 0;
 
                 workload_val = strtol(input_str, NULL, 10);
                 if (workload_val < 0 || workload_val > 100) {
@@ -126,7 +126,7 @@ int main() {
                     printf("Error reading input.\n");
                     break;
                 }
-                input_str[strcspn(input_str, "\n")] = 0; // Remove newline
+                input_str[strcspn(input_str, "\n")] = 0;
 
                 workload_val = strtol(input_str, NULL, 10);
                 if (workload_val < 0 || workload_val > 100) {

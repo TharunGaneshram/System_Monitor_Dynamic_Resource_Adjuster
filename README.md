@@ -187,3 +187,5 @@ To see the resource adjustment logic in action, set a high workload and then con
     ```
 
     **Observe in `dmesg -w`:** You should see messages confirming the HRTimer stopped, workqueue destroyed, Sysfs attributes removed, device node removed, and module unloaded.
+
+app.c file for easier testing is still in progress.
